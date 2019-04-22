@@ -1,0 +1,182 @@
+<!DOCTYPE HTML>
+<html>
+  <meta charset="UTF-8">
+
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+.bigclock {
+  text-align: center;
+  font-size: 240px;
+  margin-top: 0px;
+  font-family: sans-serif;
+  position: fixed;
+  left: 0;
+  top: 30%;
+  width: 100%;
+}
+.smallclock {
+  text-align: center;
+  font-size: 80px;
+  margin-top: 0px;
+  font-family: sans-serif;
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  color: red;
+}
+.settingsdiv {
+  position:fixed;
+  background-color: #1abc9c;
+  color: white;
+  max-width: 700px;
+  margin: auto;
+  padding: 15px;
+  bottom: 0;
+  left: 10;
+  display: none;
+}
+.settingsbb {
+  position:fixed;
+  color: white;
+  padding: 15px;
+  bottom: 0;
+  font-size: 20px;
+}
+
+    </style>
+  </head>
+  <audio id="short" src="./short.ogg" preload="auto"></audio>
+  <audio id="long" src="./long.ogg" preload="auto"></audio>
+
+  <body bgcolor="black">
+
+    <div>
+      <p id="timer" class="bigclock"></p>
+      <p id="expired" class="smallclock"></p>
+      <div class="settingsbb" id="bb" onmouseover="document.getElementById('panel').style.display='block';">⚙</div>
+      <div class="settingsdiv" id="panel" onmouseleave="document.getElementById('panel').style.display='none';">
+        <form id="settings" class="settings">
+          Total time: 
+          <input type="number" value="0" min="0" max="24">
+          :
+          <input type="number" value="15" min="0" max="60">
+          :
+          <input type="number" value="0" min="0" max="60">
+          <br/>
+          Warning time: 
+          <input type="number" value="0" min="0" max="24">
+          :
+          <input type="number" value="3" min="0" max="60">
+          :
+          <input type="number" value="0" min="0" max="60">
+          <br/>
+          Discussion time: 
+          <input type="number" value="0" min="0" max="24">
+          :
+          <input type="number" value="5" min="0" max="60">
+          :
+          <input type="number" value="0" min="0" max="60">
+          <br/>
+          <button type="button" name="Reset" value="Reset" onclick="resetTimer();">Reset timer</button>
+          <button type="button" name="Reset" value="Reset" onclick="startTimer();">Start timer</button>
+          <button type="button" name="Reset" value="Reset" onclick="pauseTimer();">Pause timer</button>
+        </form>
+        Get the full code on <a href="https://github.com/zhaiyusci/conferencetimer">my github page</a>!
+      </div>
+    </div>
+
+
+    <script>
+var remaining = 0;
+var warning = 0;
+var discussion = 0;
+var tt=null;
+
+function resetTimer(){
+  document.getElementById("timer").style.color = "white";
+  document.getElementById("expired").innerHTML =  "" ;
+  var hr  = Number(document.getElementById("settings").elements[0].value);
+  var min = Number(document.getElementById("settings").elements[1].value);
+  var sec = Number(document.getElementById("settings").elements[2].value);
+  console.log("h = "+ hr +"   m = "+min +"   s= "+sec);
+  remaining=hr*3600 + min*60 +sec;
+  remaining=remaining*1000;
+  console.log("remaining = "+ remaining/1000 +"s");
+  var hr  = Number(document.getElementById("settings").elements[3].value);
+  var min = Number(document.getElementById("settings").elements[4].value);
+  var sec = Number(document.getElementById("settings").elements[5].value);
+  warning=hr*3600 + min*60 +sec;
+  warning=warning*1000;
+  var hr  = Number(document.getElementById("settings").elements[6].value);
+  var min = Number(document.getElementById("settings").elements[7].value);
+  var sec = Number(document.getElementById("settings").elements[8].value);
+  discussion=hr*3600 + min*60 +sec;
+  discussion=discussion*1000;
+  pauseTimer();
+  showTimer();
+}
+
+function twoDigit(v){
+  if(v<10){
+    return "0"+v;
+  }else{
+    return ""+v;
+  }
+}
+
+
+function startTimer(){
+  if(tt === null){
+    tt= setInterval(function() {
+
+      remaining -= 1000;
+
+      // Time calculations for days, hours, minutes and seconds
+
+      // If the count down is over, write some text 
+      if (remaining < warning && warning - remaining<1001) {
+        document.getElementById("timer").style.color = "yellow";
+        document.getElementById('short').play();
+      }
+      if (remaining < 0 && remaining>-1001) {
+        document.getElementById("timer").style.color = "red";
+        document.getElementById("expired").innerHTML =  "TIME IS UP!" ;
+        document.getElementById('long').play();
+      }
+  console.log(remaining + discussion);
+      if (remaining + discussion < 0 && remaining + discussion > -1001) {
+        document.getElementById("timer").style.color = "orange";
+        document.getElementById("expired").innerHTML =  "TOTAL TIME RUNS OUT!" ;
+        document.getElementById('long').play();
+        pauseTimer();
+      }
+      showTimer();
+    }, 1000);
+  }
+}
+
+function pauseTimer(){
+  console.log(tt);
+  clearInterval(tt);
+  console.log(tt);
+  tt=null;
+}
+
+function showTimer(){
+
+  var hours = Math.floor((Math.abs(remaining) % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+  var minutes = Math.floor((Math.abs(remaining) % (1000 * 60 * 60)) / (1000 * 60));
+  var seconds = Math.floor((Math.abs(remaining) % (1000 * 60)) / 1000);
+
+  document.getElementById("timer").innerHTML =  twoDigit(hours) + ":" + twoDigit(minutes) + ":" + twoDigit(seconds) ;
+
+}
+
+resetTimer();
+// Update the count down every 1 second
+    </script>
+  </body>
+</html>
+

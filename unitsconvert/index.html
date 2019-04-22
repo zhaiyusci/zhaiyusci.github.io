@@ -1,0 +1,164 @@
+<html>
+  <meta charset="UTF-8">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta content="./twinislandmilk.png" itemprop="image">
+  <link rel="shortcut icon" href="./favicon.ico" type="image/x-icon"/>
+  <link rel="icon" href="./favicon.ico" type="image/x-icon"/>
+  <link rel="icon" href="./favicon_96.png" type="image/png" sizes="96x96"/>
+  <link rel="icon" href="./favicon_16.png" type="image/png" sizes="16x16"/>
+  <link rel="icon" href="./favicon.ico" type="image/x-icon"/>
+
+
+  <head>
+    <title>Units Converter</title>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+
+    <script language="JavaScript">
+
+      function displayInfo(form,field) {
+        // find field index
+        var nunits=0;
+        var conv;
+        if(form.name =="Energy"){
+          conv=convE;
+        }else if(form.name =="Length"){
+          conv=convL;
+        }else if(form.name =="Time"){
+          conv=convT;
+        }else if(form.name =="sTime"){
+          conv=convsT;
+        }
+        nunits=conv.length;
+        console.log(nunits);
+        idx=Number(field);
+
+        // calculate the base value form.elements[0].value
+        form.elements[0].value = form.elements[idx].value/conv[idx]*conv[0];
+
+        // convert to other units
+        for (var i=1; i!=nunits; i++) {
+          if ( i != idx ) {
+            form.elements[i].value = form.elements[0].value*conv[i]/conv[0] ;
+          }
+        }
+      }
+
+// MAIN variable declarations
+var energy = 0.000;
+var nchars = 0;
+var convE =[ 
+  1.000 , // Hartree
+  27.21138602 , // eV
+  2625.499638 , // kJ/mol
+  627.509474 , // kcal/mol
+  219474.6313702 , // cm-1
+  6579.683920711 , // THz
+  315775.13 ] ;// K
+var convL = [
+  1.000 , // Bohr
+  0.52917721067 , // Angstrom
+  0.052917721067 ]; // nm
+var convT = [
+  86400.0,  //s
+  1440.0,  //min
+  24.0, // hour
+  1.0   ];//day
+var convsT=[
+  1.0 , // atomic unit
+  2.418884326509e-2, // fs
+  2.418884326509e-5, // ps
+  2.418884326509e-8]; // ns
+
+
+    </script>
+
+  </head>
+
+  <body>
+    <div class="container">
+      <nav class="navbar">
+        <!-- Navbar content -->
+        <a class="navbar-brand">
+          <img src="./logo.svg" width="30" height="30" class="d-inline-block align-top" alt="">
+          Units Converters
+        </a>
+        <a>Enter your value in the box with the appropriate units, then press "Enter" to see the results.</a>
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            Provided by <a href="http://www.zhaiyusci.net/">zhaiyuSCI</a>
+          </li>
+        </ul>
+      </nav>
+      <hr/>
+
+      <div class="row">
+        <div class="col-md-4">
+          <div class="card">
+            <div class="card-header">
+              Energy Units Converter
+            </div>
+            <div class="card-body">
+              <form name="Energy" method=post>
+                <input type="text" name="0" value=0 onChange="displayInfo(this.form,this.name);"> <i>E</i><sub>h</sub><br>
+                <input type="text" name="1" value=0 onChange="displayInfo(this.form,this.name);"> eV<br>
+                <input type="text" name="2" value=0 onChange="displayInfo(this.form,this.name);"> kJ/mol<br>
+                <input type="text" name="3" value=0 onChange="displayInfo(this.form,this.name);"> kcal/mol<br>
+                <input type="text" name="4" value=0 onChange="displayInfo(this.form,this.name);"> cm<sup>-1</sup><br>
+                <input type="text" name="5" value=0 onChange="displayInfo(this.form,this.name);"> THz<br>
+                <input type="text" name="6" value=0 onChange="displayInfo(this.form,this.name);"> K<br>
+              </form>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card">
+            <div class="card-header">
+              Length Units Converter
+            </div>
+            <div class="card-body">
+              <form name="Length" method=post>
+                <input type="text" name="0" value=0 onChange="displayInfo(this.form,this.name);"> <i>a</i><sub>0</sub><br>
+                <input type="text" name="1" value=0 onChange="displayInfo(this.form,this.name);"> Å<br>
+                <input type="text" name="2" value=0 onChange="displayInfo(this.form,this.name);"> nm<br>
+              </form>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card">
+            <div class="card-header">
+              Time Units Converter
+            </div>
+            <div class="card-body">
+              <p>Time in reallife</p>
+              <form name="Time" method=post>
+                <input type="text" name="0" value=0 onChange="displayInfo(this.form,this.name);"> s<br>
+                <input type="text" name="1" value=0 onChange="displayInfo(this.form,this.name);"> min<br>
+                <input type="text" name="2" value=0 onChange="displayInfo(this.form,this.name);"> h<br>
+                <input type="text" name="3" value=0 onChange="displayInfo(this.form,this.name);"> d<br>
+              </form>
+              <p>Time in Molecular Dynamics</p>
+              <form name="sTime" method=post>
+                <input type="text" name="0" value=0 onChange="displayInfo(this.form,this.name);"> <i>ħ</i>/<i>E</i><sub>h</sub><br>
+                <input type="text" name="1" value=0 onChange="displayInfo(this.form,this.name);"> fs<br>
+                <input type="text" name="2" value=0 onChange="displayInfo(this.form,this.name);"> ps<br>
+                <input type="text" name="3" value=0 onChange="displayInfo(this.form,this.name);"> ns<br>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+      <hr/>
+      <h5> Reference: </h5>
+      <ul>
+        <li>Mohr <i>et al.</i>, "CODATA Recommended Values of the Fundamental Physical Constants: 2014", <i>Journal of Physical and Chemical Reference Data</i>, <b>45</b>, 043102 (2016); doi: <a href="http://doi.org/10.1063/1.4954402">10.1063/1.4954402</a></li>
+
+      </ul>
+      <p> Modified from <a href="http://www.colby.edu/chemistry/PChem/Hartree.html">http://www.colby.edu/chemistry/PChem/Hartree.html</a>.  Notice that in this version, significant figures are not considered because we do not want "1 <i>E</i><sub>h</sub>=220000 cm<sup>-1</sup>", although it is somehow correct.</p>
+      <p> If you want to add some other dimensions, please let me know.</p>
+    </div>
+  </body>
+
+</html>
