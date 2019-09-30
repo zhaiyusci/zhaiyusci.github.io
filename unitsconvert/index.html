@@ -17,33 +17,35 @@
 
     <script language="JavaScript">
 
-      function displayInfo(form,field) {
-        // find field index
-        var nunits=0;
-        var conv;
-        if(form.name =="Energy"){
-          conv=convE;
-        }else if(form.name =="Length"){
-          conv=convL;
-        }else if(form.name =="Time"){
-          conv=convT;
-        }else if(form.name =="sTime"){
-          conv=convsT;
-        }
-        nunits=conv.length;
-        console.log(nunits);
-        idx=Number(field);
+function displayInfo(form,field) {
+  // find field index
+  var nunits=0;
+  var conv;
+  if(form.name =="Energy"){
+    conv=convE;
+  }else if(form.name =="Length"){
+    conv=convL;
+  }else if(form.name =="Time"){
+    conv=convT;
+  }else if(form.name =="sTime"){
+    conv=convsT;
+  }else if(form.name =="Byte"){
+    conv=convB;
+  }
+  nunits=conv.length;
+  console.log(nunits);
+  idx=Number(field);
 
-        // calculate the base value form.elements[0].value
-        form.elements[0].value = form.elements[idx].value/conv[idx]*conv[0];
+  // calculate the base value form.elements[0].value
+  form.elements[0].value = form.elements[idx].value/conv[idx]*conv[0];
 
-        // convert to other units
-        for (var i=1; i!=nunits; i++) {
-          if ( i != idx ) {
-            form.elements[i].value = form.elements[0].value*conv[i]/conv[0] ;
-          }
-        }
-      }
+  // convert to other units
+  for (var i=1; i!=nunits; i++) {
+    if ( i != idx ) {
+      form.elements[i].value = form.elements[0].value*conv[i]/conv[0] ;
+    }
+  }
+}
 
 // MAIN variable declarations
 var energy = 0.000;
@@ -70,7 +72,13 @@ var convsT=[
   2.418884326509e-2, // fs
   2.418884326509e-5, // ps
   2.418884326509e-8]; // ns
-
+var convB=[
+  128, // bit
+  16, // B
+  6, // 2B
+  4, // 4B
+  2, // 8B
+  1]; // 16B
 
     </script>
 
@@ -97,7 +105,7 @@ var convsT=[
         <div class="col-md-4">
           <div class="card">
             <div class="card-header">
-              Energy Units Converter
+              Energy Units Converter<sup>$</sup>
             </div>
             <div class="card-body">
               <form name="Energy" method=post>
@@ -115,7 +123,7 @@ var convsT=[
         <div class="col-md-4">
           <div class="card">
             <div class="card-header">
-              Length Units Converter
+              Length Units Converter<sup>$</sup>
             </div>
             <div class="card-body">
               <form name="Length" method=post>
@@ -139,7 +147,7 @@ var convsT=[
                 <input type="text" name="2" value=0 onChange="displayInfo(this.form,this.name);"> h<br>
                 <input type="text" name="3" value=0 onChange="displayInfo(this.form,this.name);"> d<br>
               </form>
-              <p>Time in Molecular Dynamics</p>
+              <p>Time in Molecular Dynamics<sup>$</sup></p>
               <form name="sTime" method=post>
                 <input type="text" name="0" value=0 onChange="displayInfo(this.form,this.name);"> <i>ħ</i>/<i>E</i><sub>h</sub><br>
                 <input type="text" name="1" value=0 onChange="displayInfo(this.form,this.name);"> fs<br>
@@ -149,13 +157,33 @@ var convsT=[
             </div>
           </div>
         </div>
+        <p>
+        <hr/>
+        </p>
+        <div class="col-md-12">
+          <div class="card">
+            <div class="card-header">
+              Byte Units Converter<sup>#</sup>
+            </div>
+            <div class="card-body">
+              <form name="Byte" method=post>
+                <input type="text" name="0" value=0 onChange="displayInfo(this.form,this.name);"> bit<br>
+                <input type="text" name="1" value=0 onChange="displayInfo(this.form,this.name);"> B = <code>char</code><br>
+                <input type="text" name="2" value=0 onChange="displayInfo(this.form,this.name);"> 2 B = <code>short</code><br>
+                <input type="text" name="3" value=0 onChange="displayInfo(this.form,this.name);"> 4 B = <code>int</code> = <code>float</code><br>
+                <input type="text" name="4" value=0 onChange="displayInfo(this.form,this.name);"> 8 B = <code>long</code> = <code>long long</code> = <code>double</code> = <code>*</code><br>
+                    <input type="text" name="5" value=0 onChange="displayInfo(this.form,this.name);"> 16 B = <code>long double</code><br>
+              </form>
+            </div>
+          </div>
+        </div>
       </div>
       <hr/>
-      <h5> Reference: </h5>
-      <ul>
-        <li>Mohr <i>et al.</i>, "CODATA Recommended Values of the Fundamental Physical Constants: 2014", <i>Journal of Physical and Chemical Reference Data</i>, <b>45</b>, 043102 (2016); doi: <a href="https://doi.org/10.1063/1.4954402">10.1063/1.4954402</a></li>
+      <p>
+      <sup>$</sup> Mohr <i>et al.</i>, "CODATA Recommended Values of the Fundamental Physical Constants: 2014", <i>Journal of Physical and Chemical Reference Data</i>, <b>45</b>, 043102 (2016); doi: <a href="https://doi.org/10.1063/1.4954402">10.1063/1.4954402</a></p>
 
-      </ul>
+      <p>
+      <sup>#</sup> Data types are of C/C++.  The values are got from <code>sizeof</code> operator of C++ with g++ 9.1 on x86_64 Linux system.  You may want to check the sizes with your own compiler.</p>
       <p> Modified from <a href="https://www.colby.edu/chemistry/PChem/Hartree.html">https://www.colby.edu/chemistry/PChem/Hartree.html</a>.  Notice that in this version, significant figures are not considered because we do not want "1 <i>E</i><sub>h</sub>=220000 cm<sup>-1</sup>", although it is somehow correct.</p>
       <p> If you want to add some other dimensions, please let me know.</p>
     </div>
