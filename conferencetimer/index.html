@@ -3,6 +3,8 @@
   <meta charset="UTF-8">
 
   <head>
+    <script src="simpleTones.js"></script> 
+    <!-- Credit: https://github.com/escottalexander/simpleTones.js -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
 .bigclock {
@@ -47,8 +49,6 @@
 
     </style>
   </head>
-  <audio id="short" src="./short.ogg" preload="auto"></audio>
-  <audio id="long" src="./long.ogg" preload="auto"></audio>
 
   <body bgcolor="black">
 
@@ -139,18 +139,21 @@ function startTimer(){
       // If the count down is over, write some text 
       if (remaining < warning && warning - remaining<1001) {
         document.getElementById("timer").style.color = "yellow";
-        document.getElementById('short').play();
+        
+		playTone(chord["F2"], "square", 0.5); // short
+        // document.getElementById('short').play(); 
       }
       if (remaining < 0 && remaining>-1001) {
         document.getElementById("timer").style.color = "red";
         document.getElementById("expired").innerHTML =  "TIME IS UP!" ;
-        document.getElementById('long').play();
+        <!-- document.getElementById('long').play(); -->
+        playTone(chord["F2"], "square", 1.5); // short
       }
   console.log(remaining + discussion);
       if (remaining + discussion < 0 && remaining + discussion > -1001) {
         document.getElementById("timer").style.color = "orange";
-        document.getElementById("expired").innerHTML =  "TOTAL TIME RUNS OUT!" ;
-        document.getElementById('long').play();
+        document.getElementById("expired").innerHTML =  "TIME RUNS OUT!" ;
+        // document.getElementById('long').play();
         pauseTimer();
       }
       showTimer();
