@@ -57,8 +57,9 @@
       <p id="expired" class="smallclock"></p>
       <div class="settingsbb" id="bb" onmouseover="document.getElementById('panel').style.display='block';">⚙</div>
       <div class="settingsdiv" id="panel" onmouseleave="document.getElementById('panel').style.display='none';">
+	<p>Total time = Talk time + Discussion time; Warning time is included in Talk time.</p>
         <form id="settings" class="settings">
-          Total time: 
+          Talk time: 
           <input type="number" value="0" min="0" max="24">
           :
           <input type="number" value="15" min="0" max="60">
@@ -139,21 +140,18 @@ function startTimer(){
       // If the count down is over, write some text 
       if (remaining < warning && warning - remaining<1001) {
         document.getElementById("timer").style.color = "yellow";
-        
-		playTone(chord["F2"], "square", 0.5); // short
-        // document.getElementById('short').play(); 
+        playTone(chord["F2"], "square", 0.5); // short
       }
       if (remaining < 0 && remaining>-1001) {
         document.getElementById("timer").style.color = "red";
-        document.getElementById("expired").innerHTML =  "TIME IS UP!" ;
-        <!-- document.getElementById('long').play(); -->
-        playTone(chord["F2"], "square", 1.5); // short
+        document.getElementById("expired").innerHTML =  "DISCUSSION" ;
+        playTone(chord["F2"], "square", 1.5); // long
       }
   console.log(remaining + discussion);
       if (remaining + discussion < 0 && remaining + discussion > -1001) {
         document.getElementById("timer").style.color = "orange";
         document.getElementById("expired").innerHTML =  "TIME RUNS OUT!" ;
-        // document.getElementById('long').play();
+        playTone(chord["F2"], "square", 1.5); // long
         pauseTimer();
       }
       showTimer();
