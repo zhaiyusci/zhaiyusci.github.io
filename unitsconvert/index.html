@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html>
   <meta charset="UTF-8">
 
@@ -14,74 +15,6 @@
     <title>Units Converter</title>
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
-
-    <script language="JavaScript">
-
-function displayInfo(form,field) {
-  // find field index
-  var nunits=0;
-  var conv;
-  if(form.name =="Energy"){
-    conv=convE;
-  }else if(form.name =="Length"){
-    conv=convL;
-  }else if(form.name =="Time"){
-    conv=convT;
-  }else if(form.name =="sTime"){
-    conv=convsT;
-  }else if(form.name =="Byte"){
-    conv=convB;
-  }
-  nunits=conv.length;
-  console.log(nunits);
-  idx=Number(field);
-
-  // calculate the base value form.elements[0].value
-  form.elements[0].value = form.elements[idx].value/conv[idx]*conv[0];
-
-  // convert to other units
-  for (var i=1; i!=nunits; i++) {
-    if ( i != idx ) {
-      form.elements[i].value = form.elements[0].value*conv[i]/conv[0] ;
-    }
-  }
-}
-
-// MAIN variable declarations
-var energy = 0.000;
-var nchars = 0;
-var convE =[ 
-  1.000 , // Hartree
-  27.21138602 , // eV
-  2625.499638 , // kJ/mol
-  627.509474 , // kcal/mol
-  219474.6313702 , // cm-1
-  6579.683920711 , // THz
-  315775.13,// K
-  2.000  ] ; // Rydberg
-var convL = [
-  1.000 , // Bohr
-  0.52917721067 , // Angstrom
-  0.052917721067 ]; // nm
-var convT = [
-  86400.0,  //s
-  1440.0,  //min
-  24.0, // hour
-  1.0   ];//day
-var convsT=[
-  1.0 , // atomic unit
-  2.418884326509e-2, // fs
-  2.418884326509e-5, // ps
-  2.418884326509e-8]; // ns
-var convB=[
-  128, // bit
-  16, // B
-  6, // 2B
-  4, // 4B
-  2, // 8B
-  1]; // 16B
-
-    </script>
 
   </head>
 
@@ -109,15 +42,15 @@ var convB=[
               Energy Units Converter<sup>$</sup>
             </div>
             <div class="card-body">
-              <form name="Energy" method=post>
-                <input type="text" name="0" value=0 onChange="displayInfo(this.form,this.name);"> <i>E</i><sub>h</sub><br>
-                <input type="text" name="1" value=0 onChange="displayInfo(this.form,this.name);"> eV<br>
-                <input type="text" name="2" value=0 onChange="displayInfo(this.form,this.name);"> kJ/mol<br>
-                <input type="text" name="3" value=0 onChange="displayInfo(this.form,this.name);"> kcal/mol<br>
-                <input type="text" name="4" value=0 onChange="displayInfo(this.form,this.name);"> cm<sup>-1</sup><br>
-                <input type="text" name="5" value=0 onChange="displayInfo(this.form,this.name);"> THz<br>
-                <input type="text" name="6" value=0 onChange="displayInfo(this.form,this.name);"> K<br>
-                <input type="text" name="7" value=0 onChange="displayInfo(this.form,this.name);"> Ry<br>
+              <form id="Energy">
+                <input v-model.number="hartree" type="text"> <i>E</i><sub>h</sub><br>
+                <input v-model.number="ev"      type="text"> eV<br>
+                <input v-model.number="kj" type="text"> kJ/mol<br>
+                <input v-model.number="kcal" type="text"> kcal/mol<br>
+                <input v-model.number="cm" type="text"> cm<sup>-1</sup><br>
+                <input v-model.number="thz" type="text"> THz<br>
+                <input v-model.number="k" type="text"> K<br>
+                <input v-model.number="ry" type="text"> Ry<br>
               </form>
             </div>
           </div>
@@ -128,10 +61,10 @@ var convB=[
               Length Units Converter<sup>$</sup>
             </div>
             <div class="card-body">
-              <form name="Length" method=post>
-                <input type="text" name="0" value=0 onChange="displayInfo(this.form,this.name);"> <i>a</i><sub>0</sub><br>
-                <input type="text" name="1" value=0 onChange="displayInfo(this.form,this.name);"> Å<br>
-                <input type="text" name="2" value=0 onChange="displayInfo(this.form,this.name);"> nm<br>
+              <form id="Length">
+                <input v-model.number="a0" type="text"> <i>a</i><sub>0</sub><br>
+                <input v-model.number="ang" type="text"> Å<br>
+                <input v-model.number="nm" type="text"> nm<br>
               </form>
             </div>
           </div>
@@ -143,18 +76,18 @@ var convB=[
             </div>
             <div class="card-body">
               <p>Time in reallife</p>
-              <form name="Time" method=post>
-                <input type="text" name="0" value=0 onChange="displayInfo(this.form,this.name);"> s<br>
-                <input type="text" name="1" value=0 onChange="displayInfo(this.form,this.name);"> min<br>
-                <input type="text" name="2" value=0 onChange="displayInfo(this.form,this.name);"> h<br>
-                <input type="text" name="3" value=0 onChange="displayInfo(this.form,this.name);"> d<br>
+              <form id="Time">
+                <input v-model.number="s" type="text"> s<br>
+                <input v-model.number="m" type="text"> min<br>
+                <input v-model.number="h" type="text"> h<br>
+                <input v-model.number="d" type="text"> d<br>
               </form>
               <p>Time in Molecular Dynamics<sup>$</sup></p>
-              <form name="sTime" method=post>
-                <input type="text" name="0" value=0 onChange="displayInfo(this.form,this.name);"> <i>ħ</i>/<i>E</i><sub>h</sub><br>
-                <input type="text" name="1" value=0 onChange="displayInfo(this.form,this.name);"> fs<br>
-                <input type="text" name="2" value=0 onChange="displayInfo(this.form,this.name);"> ps<br>
-                <input type="text" name="3" value=0 onChange="displayInfo(this.form,this.name);"> ns<br>
+              <form id="sTime">
+                <input v-model.number="au" type="text"> <i>ħ</i>/<i>E</i><sub>h</sub><br>
+                <input v-model.number="fs" type="text"> fs<br>
+                <input v-model.number="ps" type="text"> ps<br>
+                <input v-model.number="ns" type="text"> ns<br>
               </form>
             </div>
           </div>
@@ -168,13 +101,13 @@ var convB=[
               Byte Units Converter<sup>#</sup>
             </div>
             <div class="card-body">
-              <form name="Byte" method=post>
-                <input type="text" name="0" value=0 onChange="displayInfo(this.form,this.name);"> bit<br>
-                <input type="text" name="1" value=0 onChange="displayInfo(this.form,this.name);"> B = <code>char</code><br>
-                <input type="text" name="2" value=0 onChange="displayInfo(this.form,this.name);"> 2 B = <code>short</code><br>
-                <input type="text" name="3" value=0 onChange="displayInfo(this.form,this.name);"> 4 B = <code>int</code> = <code>float</code><br>
-                <input type="text" name="4" value=0 onChange="displayInfo(this.form,this.name);"> 8 B = <code>long</code> = <code>long long</code> = <code>double</code> = <code>*</code><br>
-                    <input type="text" name="5" value=0 onChange="displayInfo(this.form,this.name);"> 16 B = <code>long double</code><br>
+              <form id="Byte">
+                <input v-model.number="bit" type="text"> bit<br>
+                <input v-model.number="B" type="text"> B = <code>char</code><br>
+                <input v-model.number="B2" type="text"> 2 B = <code>short</code><br>
+                <input v-model.number="B4" type="text"> 4 B = <code>int</code> = <code>float</code><br>
+                <input v-model.number="B8" type="text"> 8 B = <code>long</code> = <code>long long</code> = <code>double</code> = <code>*</code><br>
+                <input v-model.number="B16" type="text"> 16 B = <code>long double</code><br>
               </form>
             </div>
           </div>
@@ -190,5 +123,6 @@ var convB=[
       <p> If you want to add some other dimensions, please let me know.</p>
     </div>
   </body>
-
+    <script src="./vue.global.prod.js"></script>
+    <script src="./convert.js"> </script>
 </html>
