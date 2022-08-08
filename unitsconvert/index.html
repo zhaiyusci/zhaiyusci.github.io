@@ -43,15 +43,15 @@
             </div>
             <div class="card-body">
               <form id="Energy">
-                <input v-model.number="hartree" type="text"> <i>E</i><sub>h</sub><br>
-                <input v-model.number="ev"      type="text"> eV<br>
-                <input v-model.number="kj" type="text"> kJ/mol<br>
-                <input v-model.number="kcal" type="text"> kcal/mol<br>
-                <input v-model.number="cm" type="text"> cm<sup>-1</sup><br>
-                <input v-model.number="thz" type="text"> THz<br>
-                <input v-model.number="k" type="text"> K<br>
-                <input v-model.number="ry" type="text"> Ry<br>
-                <input v-model.number="nm" type="text"> nm<br>
+                <input v-model.lazy.number="hartree" type="text"> <i>E</i><sub>h</sub><br>
+                <input v-model.lazy.number="ev"      type="text"> eV<br>
+                <input v-model.lazy.number="kj" type="text"> kJ/mol<br>
+                <input v-model.lazy.number="kcal" type="text"> kcal/mol<br>
+                <input v-model.lazy.number="cm" type="text"> cm<sup>-1</sup><br>
+                <input v-model.lazy.number="thz" type="text"> THz<br>
+                <input v-model.lazy.number="k" type="text"> K<br>
+                <input v-model.lazy.number="ry" type="text"> Ry<br>
+                <input v-model.lazy.number="nm" type="text"> nm<br>
               </form>
             </div>
           </div>
@@ -63,9 +63,9 @@
             </div>
             <div class="card-body">
               <form id="Length">
-                <input v-model.number="a0" type="text"> <i>a</i><sub>0</sub><br>
-                <input v-model.number="ang" type="text"> Å<br>
-                <input v-model.number="nm" type="text"> nm<br>
+                <input v-model.lazy.number="a0" type="text"> <i>a</i><sub>0</sub><br>
+                <input v-model.lazy.number="ang" type="text"> Å<br>
+                <input v-model.lazy.number="nm" type="text"> nm<br>
               </form>
             </div>
           </div>
@@ -78,17 +78,17 @@
             <div class="card-body">
               <p>Time in reallife</p>
               <form id="Time">
-                <input v-model.number="s" type="text"> s<br>
-                <input v-model.number="m" type="text"> min<br>
-                <input v-model.number="h" type="text"> h<br>
-                <input v-model.number="d" type="text"> d<br>
+                <input v-model.lazy.number="s" type="text"> s<br>
+                <input v-model.lazy.number="m" type="text"> min<br>
+                <input v-model.lazy.number="h" type="text"> h<br>
+                <input v-model.lazy.number="d" type="text"> d<br>
               </form>
               <p>Time in Molecular Dynamics<sup>$</sup></p>
               <form id="sTime">
-                <input v-model.number="au" type="text"> <i>ħ</i>/<i>E</i><sub>h</sub><br>
-                <input v-model.number="fs" type="text"> fs<br>
-                <input v-model.number="ps" type="text"> ps<br>
-                <input v-model.number="ns" type="text"> ns<br>
+                <input v-model.lazy.number="au" type="text"> <i>ħ</i>/<i>E</i><sub>h</sub><br>
+                <input v-model.lazy.number="fs" type="text"> fs<br>
+                <input v-model.lazy.number="ps" type="text"> ps<br>
+                <input v-model.lazy.number="ns" type="text"> ns<br>
               </form>
             </div>
           </div>
@@ -103,12 +103,12 @@
             </div>
             <div class="card-body">
               <form id="Byte">
-                <input v-model.number="bit" type="text"> bit<br>
-                <input v-model.number="B" type="text"> B = <code>char</code><br>
-                <input v-model.number="B2" type="text"> 2 B = <code>short</code><br>
-                <input v-model.number="B4" type="text"> 4 B = <code>int</code> = <code>float</code><br>
-                <input v-model.number="B8" type="text"> 8 B = <code>long</code> = <code>long long</code> = <code>double</code> = <code>*</code><br>
-                <input v-model.number="B16" type="text"> 16 B = <code>long double</code><br>
+                <input v-model.lazy.number="bit" type="text"> bit<br>
+                <input v-model.lazy.number="B" type="text"> B = <code>char</code><br>
+                <input v-model.lazy.number="B2" type="text"> 2 B = <code>short</code><br>
+                <input v-model.lazy.number="B4" type="text"> 4 B = <code>int</code> = <code>float</code><br>
+                <input v-model.lazy.number="B8" type="text"> 8 B = <code>long</code> = <code>long long</code> = <code>double</code> = <code>*</code><br>
+                <input v-model.lazy.number="B16" type="text"> 16 B = <code>long double</code><br>
               </form>
             </div>
           </div>
