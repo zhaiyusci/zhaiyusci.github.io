@@ -16,6 +16,8 @@ const Energy = {
       set k(val) {this.hartree = val / 315775.13;},
       get ry() {return this.hartree * 2.0;},
       set ry(val) {this.hartree = val / 2.0;},
+      get nm() {return 1e7 / this.cm ;},
+      set nm(val) {this.cm = 1e7/val;},
     }
   },
 };
